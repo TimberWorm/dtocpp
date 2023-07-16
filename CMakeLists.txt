@@ -12,3 +12,5 @@ SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Werror")
 SET(CMAKE_CXX_FLAGS_DEBUG "-g -fno-inline -Wall -Werror")
 
 project(dtocpp)
+
+add_subdirectory( src/dtocpp )
