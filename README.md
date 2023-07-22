@@ -23,21 +23,29 @@ If one compares both variants, one recognizes similarities.
 
 In XML and correspondingly in CPP the whole thing can be deepened one level further. Let's add one more element.
 
-*XML*
-<Data Value1=“0“ Value"1">
-    <OtherData Name="Fox"\>
-<\Data>
+    *XML*                                       *CPP*
+    <Data Value1=“0“ Value"1"\>                 struct Data {
+                                                   int mValue = 0;
+                                                   int mValue = 1;
+                                                };
 
-*CPP*
-struct OtherData {
-    std::string mName = "Fox";
-};
+If one compares both variants, one recognizes similarities. 
 
-struct Data {
-    int mValue = 0;
-    int mValue = 1;
-    OtherData mOtherData;
-};
+* An object. In XML it is the element and in CPP the structure / class.
+* One or more values. In XML it is the attributes and in CPP the member variables.
+
+In XML and correspondingly in CPP the whole thing can be deepened one level further. Let's add one more element.
+
+    *XML*                                       *CPP*
+                                                struct OtherData {
+                                                    std::string mName = "Fox";
+                                                };
+    <Data Value1=“0“ Value"1">                  struct Data {
+                                                    int mValue = 0;
+                                                    int mValue = 1;
+        <OtherData Name="Fox"\>                     OtherData mOtherData;
+    <\Data>                                     };
+    <\Data>
 
 # German
 
@@ -48,14 +56,11 @@ Daten-Transfer-Objekt
 Ursprung der Überlegung ist es, wie man am besten, ohne viel Aufwand eine XML Konfigurationsdatei einlesen könnte. 
 Schauen wir uns mal beide Möglichkeiten an.
 
-    *XML*
-    <Data Value1=“0“ Value"1"\>       
-    
-    *CPP*
-    struct Data {
-       int mValue = 0;
-       int mValue = 1;
-    };
+    *XML*                                       *CPP*
+    <Data Value1=“0“ Value"1"\>                 struct Data {
+                                                   int mValue = 0;
+                                                   int mValue = 1;
+                                                };
     
 Vergleicht man beide Varianten so erkennt man Gemeinsamkeiten. 
 
@@ -64,21 +69,15 @@ Vergleicht man beide Varianten so erkennt man Gemeinsamkeiten.
 
 Man kann in XML und entsprechend in CPP das ganze um eine Stufe weiter vertiefen. Fügen wir als noch ein Element hinzu.
 
-    *XML*
-    <Data Value1=“0“ Value"1">
-        <OtherData Name="Fox"\>
-    <\Data>
-
-    *CPP*
-    struct OtherData {
-        std::string mName = "Fox";
-    };
-    
-    struct Data {
-        int mValue = 0;
-        int mValue = 1;
-        OtherData mOtherData;
-    };
+    *XML*                                       *CPP*
+                                                struct OtherData {
+                                                    std::string mName = "Fox";
+                                                };
+    <Data Value1=“0“ Value"1">                  struct Data {
+                                                    int mValue = 0;
+                                                    int mValue = 1;
+        <OtherData Name="Fox"\>                     OtherData mOtherData;
+    <\Data>                                     };
     
 
     
