@@ -6,34 +6,55 @@
 
 DTOCPP_NAMESPACE_BEGIN
 
+/**
+ * \ingroup dtocpp
+ * \defgroup led LED - Logging, Error and Trance API
+ * @{
+ */
+
 using TLedChannelType   = unsigned;
 using TLedWriteCallback = void (*)( void * userData, TLedChannelType, const char *, int len );
+using TLedBufferSize    = std::integral_constant< int, 4000 >;
 
+/**
+ * Gefault output function that is pre-initialized. Outputs all channels on std::cout.
+ * Can be disabled with the function LedRemoveOutCallback.
+ *
+ * Gefault Ausgabe Funktion die vorinitialisiert ist. Gibt alle Channel auf std::cout aus.
+ * Kann mit der Funktion LedRemoveOutCallback Deaktiviert werden.
+ */
 void LedDefaultOutCallback( void * userData, TLedChannelType, const char *, int len );
 
-struct LedStream;
+void LedRemoveOutCallback( TLedWriteCallback );
 
 struct LedStream {
     std::ostream & mStream;
 
     ~LedStream();
-
-    static LedStream factory( std::ostream  & o,
-                              void          * ledInfo,
-                              TLedChannelType channel ){
-        return LedStream( o, ledInfo, channel );
-    }
+    static LedStream lockStream( TLedChannelType );
 
 private:
     LedStream( std::ostream  & o,
                void          * ledInfo,
-               TLedChannelType channel )
+               TLedChannelType cha )
         : mStream( o ),
         mLedInfo( ledInfo ),
-        mChannel( channel ){}
+        mChannel( cha ){}
 
     void          * mLedInfo = nullptr;
     TLedChannelType mChannel;
 };
+
+#define LED( cha, ... ) \
+    do { \
+        if( DTOCPP_NAMESPACE LedTestChannle( cha ) ) { \
+            auto ledStream = DTOCPP_NAMESPACE LedStream::lockStream(); \
+            ledStream.mStream << __VA_ARGS__; \
+        } \
+    } while( 0 )
+
+/**
+ * }@
+ */
 
 DTOCPP_NAMESPACE_END

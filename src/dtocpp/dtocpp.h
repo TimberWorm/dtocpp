@@ -2,8 +2,14 @@
 
 #include <cstdint>
 
+#define DTOCPP_NAMESPACE dto::
 #define DTOCPP_NAMESPACE_BEGIN namespace dto {
 #define DTOCPP_NAMESPACE_END }
+
+/**
+ * \defgroup dtocpp Date-Transfer-Object Library
+ * @{
+ */
 
 
 
@@ -19,3 +25,7 @@ using TUint64 = std::uint64_t;
 
 using TFloat = float;
 using TDouble = double;
+
+/**
+ * }@
+ */
