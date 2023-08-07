@@ -14,3 +14,5 @@ SET(CMAKE_CXX_FLAGS_DEBUG "-g -fno-inline -Wall -Werror")
 project(dtocpp)
 
 add_subdirectory( src/dtocpp )
+add_subdirectory( test/testlib)
+add_subdirectory( test/testcommon)

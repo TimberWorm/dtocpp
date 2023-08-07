@@ -14,7 +14,8 @@ DTOCPP_NAMESPACE_BEGIN
 
 using TLedChannelType   = unsigned;
 using TLedWriteCallback = void (*)( void * userData, TLedChannelType, const char *, int len );
-using TLedBufferSize    = std::integral_constant< int, 4000 >;
+
+const TLedChannelType CLedBufferSize = 0x1fff;
 
 /**
  * Gefault output function that is pre-initialized. Outputs all channels on std::cout.
@@ -24,7 +25,6 @@ using TLedBufferSize    = std::integral_constant< int, 4000 >;
  * Kann mit der Funktion LedRemoveOutCallback Deaktiviert werden.
  */
 void LedDefaultOutCallback( void * userData, TLedChannelType, const char *, int len );
-
 void LedRemoveOutCallback( TLedWriteCallback );
 
 struct LedStream {

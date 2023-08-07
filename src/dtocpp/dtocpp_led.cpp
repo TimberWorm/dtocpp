@@ -13,7 +13,7 @@ DTOCPP_NAMESPACE_BEGIN
 namespace {
 struct LedStreamBuffer {
     static int         mNextFreeThreadID;
-    char               mBuffer[TLedBufferSize::value];
+    char               mBuffer[CLedBufferSize];
     std::ostringstream mSStream;
     int                mThreadID = mNextFreeThreadID++;
 
@@ -35,6 +35,7 @@ struct LedContext {
     std::mutex                      mOutCallbackMutex;
     std::mutex                      mThreadStreamsMutex;
     std::vector< LedWriteCallback > mWriteCallbacks = { { & LedDefaultOutCallback, nullptr } };
+    TLedChannelType                 mChannels       = 0;
 
     static LedContext & get() {
         static LedContext mCtx;
@@ -50,6 +51,19 @@ void LedDefaultOutCallback( void       * userData,
                             int          len )
 {
     std::cout.write( data, len );
+}
+
+void LedChannelOpen( TLedChannelType channel )
+{
+    auto & ctx = LedContext::get();
+
+    ctx.mChannels |= static_cast< TLedChannelType > (1) << channel;
+}
+
+void LedChannelClose( TLedChannelType channel ){
+    auto & ctx = LedContext::get();
+
+    ctx.mChannels &= ~(static_cast< TLedChannelType > (1) << channel);
 }
 
 LedStream LedStream::lockStream( TLedChannelType channel )
